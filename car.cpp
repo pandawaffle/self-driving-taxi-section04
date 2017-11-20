@@ -40,25 +40,26 @@ Car::~Car() {}
     If the trip is valid, it should call add_trip() to add the valid trip.
 */
 
-Car &Car::pickup_request(std::vector<int> pickup_coords, std::vector<int> drop_coords, int new_passengers)
-{	if (pickup_coords.check_distance())+(drop_coords.check_distance())+(go_home.check_distance()) <= read_battery) {
-	pickup_coords.add_trip();
-	if (has_passengers==0){
-		drop_coords.addtrip();
-		}
-	if (has_passengers==1){
-		go_home();
-		}	
+Car &Car::pickup_request(std::vector<int> pickup_coords, std::vector<int> drop_coords, int new_passengers){
+	int total_dis;
+	if (check_distance(drop_coords, pickup_coords) && num_passengers+new_passengers <= 4 && destinations.empty()){
+		add_trip({pickup_coords, drop_coords}, new_passengers);
 	}
-	if (pickup.check_distance())+(drop-off.check_distance())+(home.check_distance()) >= read_battery){
-	go_home();
-	}
+	else go_home();
     return *this;
 }
 
-{
-    return 0;
+// Car &Car::pickup_request(std::vector<int> pickup_coords, std::vector<int> drop_coords, int new_passengers)
+// {
+	// if (is_home() && check_distance(pickup_coords, drop_coords) && num_passengers + new_passengers <=4){
+	   // add_trip(pickup_coords,drop_coords,new_passengers);
+   // }
+    // return *this;
+// }
+
 int Car::read_battery()
+{
+	return battery_level;
 }
 
 int Car::read_speed()
