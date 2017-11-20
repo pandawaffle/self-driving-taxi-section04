@@ -21,14 +21,44 @@ Car::Car(int charge)
 Car::~Car() {}
 
 // REQUIRES OTHER FUNCTIONS
+/*
+  ### Branch:
+    func_pickup-request
+
+    ### Should:
+    - Check the distance to pickup, drop-off, and home against current battery levels
+    - Check if not currently on a trip
+    - Check the number of requested passengers (limit 4)
+    - If all checks pass, add the trip
+
+    ### Relies on:
+    - add_trip()
+    - check_distance()
+
+    ### In depth:
+    This method should queue valid trips. It should check if a trip is valid by first checking the distance to complete the trip (distance to the pickup, to the dropoff, and then back home to charge). 
+    If the trip is valid, it should call add_trip() to add the valid trip.
+*/
+
 Car &Car::pickup_request(std::vector<int> pickup_coords, std::vector<int> drop_coords, int new_passengers)
-{
+{	if (pickup_coords.check_distance())+(drop_coords.check_distance())+(go_home.check_distance()) <= read_battery) {
+	pickup_coords.add_trip();
+	if (has_passengers==0){
+		drop_coords.addtrip();
+		}
+	if (has_passengers==1){
+		go_home();
+		}	
+	}
+	if (pickup.check_distance())+(drop-off.check_distance())+(home.check_distance()) >= read_battery){
+	go_home();
+	}
     return *this;
 }
 
-int Car::read_battery()
 {
     return 0;
+int Car::read_battery()
 }
 
 int Car::read_speed()
